@@ -1,19 +1,28 @@
 import mongoose from "mongoose";
 
-const contactSchema = new mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    name: { type: String, required: true },
-    email: { type: String },
-    phone: { type: String },
-    company: { type: String },
-    notes: { type: String },
+const contactSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+});
 
-export default mongoose.model("Contact", contactSchema);
+const Contact = mongoose.model("Contact", contactSchema);
+export default Contact;
