@@ -124,9 +124,9 @@ GET    | /api/enquiry/private     | Get enquiries claimed by logged-in user | �
 3. For all `/api/contacts` routes → use: Authorization: Bearer <your_token>
 4. Try CRUD operations on contacts
 
-## 🧪 Example Usage
+# 🧪 Example Usage
 
-# Register
+## Register
 
 HTTP Type: POST
 API Endpoint: /api/auth/register
@@ -142,12 +142,12 @@ Raw JSON Body:
 }
 ```
 
-# Login User
+## Login User
 
 HTTP Type: POST
+
 API Endpoint: /api/auth/login
-Headers:
-Content-Type: application/json
+
 Raw JSON Body:
 
 ```bash
@@ -157,12 +157,11 @@ Raw JSON Body:
 }
 ```
 
-# Submit Public Enquiry (No Auth Required)
+## Submit Public Enquiry (No Auth Required)
 
 HTTP Type: POST
+
 API Endpoint: /api/enquiry/public
-Headers:
-Content-Type: application/json
 
 Raw JSON Body:
 
@@ -175,29 +174,35 @@ Raw JSON Body:
 }
 ```
 
-# Get All Unclaimed Enquiries (Public Leads)
+## Get All Unclaimed Enquiries (Public Leads)
 
 HTTP Type: GET
+
 API Endpoint: /api/enquiry/public
+
 Headers:
 Authorization: Bearer <your_jwt_token>
 
-# Claim an Enquiry (Private it to yourself)
+## Claim an Enquiry (Private it to yourself)
 
 HTTP Type: POST
+
 API Endpoint: /api/enquiry/claim/:id
+
 Headers:
 Authorization: Bearer <your_jwt_token>
+
 Example URL:
 
 ```bash
 /api/enquiry/claim/67305b5f17c3a2b8942e1e88
 ```
 
-# Get All Claimed Enquiries (Private Leads)
+## Get All Claimed Enquiries (Private Leads)
 
 HTTP Type: GET
+
 API Endpoint: /api/enquiry/private
+
 Headers:
 Authorization: Bearer <your_jwt_token>
-
