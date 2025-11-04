@@ -1,155 +1,101 @@
-# 📞 Contact Management Backend API
+# 🧠 Customer Relationship Management (CRM) Backend
 
-A secure **Node.js + Express.js + MongoDB** backend for managing user authentication and contacts.  
-It supports **JWT-based authentication**, CRUD operations for contacts, and proper route protection.
+This project is a **Customer Relationship Management (CRM)** backend system built using **Node.js**, **Express.js**, and **MongoDB**.  
+It provides APIs for managing **customers**, **leads**, **course interests**, and **user authentication** — allowing organizations to efficiently manage their client database.
 
 ---
 
 ## 🚀 Features
 
-- 🔐 **User Authentication**
-  - Register & Login with hashed passwords (bcrypt)
-  - JWT-based token authentication
-- 👥 **Contact Management**
-  - Create, Read, Update, Delete contacts
-  - Each contact linked to the logged-in user
-- 🧱 **RESTful API structure**
-- ⚙️ **Error handling** & organized folder structure
-- 🌐 **MongoDB integration** using Mongoose
+✅ User authentication using JWT  
+✅ CRUD operations for customers, leads, and courses  
+✅ Role-based access (admin, staff)  
+✅ MongoDB as the database (via Mongoose ODM)  
+✅ Proper error handling & response structure  
+✅ Scalable folder structure
 
 ---
 
-## 📂 Project Structure
+## 🧩 Tech Stack
 
-backend/
-├── src/
-│ ├── config/
-│ │ └── db.js # MongoDB connection setup
-│ ├── controllers/
-│ │ ├── authController.js # Login & Register logic
-│ │ └── contactController.js # (Optional: for cleaner routes)
-│ ├── middleware/
-│ │ └── authMiddleware.js # JWT verification middleware
-│ ├── models/
-│ │ ├── User.js # User schema
-│ │ └── Contact.js # Contact schema
-│ ├── routes/
-│ │ ├── authRoutes.js # /api/auth endpoints
-│ │ └── contactRoutes.js # /api/contacts endpoints
-│ └── server.js # Entry point
-├── .env # Environment variables
-├── package.json
-└── README.md
+- **Node.js** – Backend runtime
+- **Express.js** – Web framework
+- **MongoDB** – Database
+- **Mongoose** – ODM for MongoDB
+- **JWT** – For authentication
+- **bcrypt.js** – For password hashing
+- **dotenv** – For environment configuration
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Installation
 
-# 1️⃣ Clone the repository
+### 1️⃣ Clone the repository
 
-git clone <your_repo_url>
-cd backend
-
-# 2️⃣ Install dependencies
-
-npm install
-
-# 3️⃣ Create .env file
-
-# Example:
-
-# --------------------------
-
-# PORT=5000
-
-# MONGO_URI=your_mongodb_connection_string
-
-# JWT_SECRET=your_secret_key
-
-# --------------------------
-
-# 4️⃣ Run the server
-
-npm run dev
-
-# Server will run at:
-
-# 👉 http://localhost:5000
-
----
-
-## 🔑 API Endpoints
-
-# 👤 Auth Routes
-
-# ------------------------------------------------------
-
-# Method | Endpoint | Description | Protected
-
-# -------|----------------------|------------------------|-----------
-
-# POST | /api/auth/register | Register new user | ❌
-
-# POST | /api/auth/login | Login user & get token | ❌
-
-# 📞 Contact Routes
-
-# ------------------------------------------------------
-
-# Method | Endpoint | Description | Protected
-
-# -------|----------------------|-----------------------------|-----------
-
-# POST | /api/contacts | Create new contact | ✅
-
-# GET | /api/contacts | Get all contacts | ✅
-
-# GET | /api/contacts/:id | Get single contact by ID | ✅
-
-# PUT | /api/contacts/:id | Update contact by ID | ✅
-
-# DELETE | /api/contacts/:id | Delete contact by ID | ✅
-
-# ✅ Protected routes require a valid JWT in header:
-
-# Authorization: Bearer <token>
-
----
-
-## 🧪 Testing with Postman
-
-1. Register a new user → `/api/auth/register`
-2. Login with `/api/auth/login` → copy JWT token
-3. For all `/api/contacts` routes → use:
-4. Try CRUD operations on contacts
-
----
-
-## 💾 Example Contact Object
-
+```bash
+git clone [https://github.com/yourusername/crm-backend.git](https://github.com/yourusername/crm-backend.git)
+cd crm-backend
+2️⃣ Install dependenciesBashnpm install
+3️⃣ Set up environment variablesCreate a .env file in the root directory and add:BashPORT=5000
+MONGO_URI=mongodb+srv://your-mongo-uri
+JWT_SECRET=your_jwt_secret
+NODE_ENV=development
+4️⃣ Start the serverBashnpm run dev
+Server will start at: http://localhost:5000📁 Folder StructureBashsrc/
+├── config/
+│   └── db.js                # Database connection
+├── controllers/
+│   ├── authController.js    # Handles signup/login
+│   ├── customerController.js# CRUD for customers
+│   ├── leadController.js    # CRUD for leads
+│   └── courseController.js  # CRUD for course interests
+├── middleware/
+│   └── authMiddleware.js    # Auth protection (JWT)
+├── models/
+│   ├── User.js
+│   ├── Customer.js
+│   ├── Lead.js
+│   └── CourseInterest.js
+├── routes/
+│   ├── authRoutes.js
+│   ├── customerRoutes.js
+│   ├── leadRoutes.js
+│   └── courseRoutes.js
+├── utils/
+│   └── errorHandler.js      # Custom error handling
+├── server.js                # Entry point
+└── .env                     # Environment variables
+🔑 API Endpoints🔐 AuthenticationMethodEndpointDescriptionPOST/api/auth/registerRegister a new userPOST/api/auth/loginLogin and get tokenExample Login RequestJSONPOST /api/auth/login
 {
-"name": "John Doe",
-"email": "john@example.com",
-"phone": "+91 9876543210",
-"message": "Interested in collaboration"
+  "email": "admin@example.com",
+  "password": "password123"
 }
-
----
-
-## 🧱 Tech Stack
-
-- Node.js
-- Express.js
-- MongoDB + Mongoose
-- JWT Authentication
-- bcrypt for password hashing
-- dotenv for environment variables
-
----
-
-## 🧑‍💻 Author
-
-**Vedant Sharma**  
-Backend Developer | CSE @ ADGITM  
-GitHub: https://github.com/  
-LinkedIn: https://linkedin.com/in/
+Example Login ResponseJSON{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
+}
+👤 CustomersMethodEndpointDescriptionGET/api/customersGet all customersGET/api/customers/:idGet customer by IDPOST/api/customersAdd new customerPUT/api/customers/:idUpdate customerDELETE/api/customers/:idDelete customerExample Customer ObjectJSON{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "9876543210",
+  "status": "active"
+}
+🧲 LeadsMethodEndpointDescriptionGET/api/leadsGet all leadsPOST/api/leadsAdd a new leadPUT/api/leads/:idUpdate a leadDELETE/api/leads/:idDelete a leadExample Lead ObjectJSON{
+  "leadName": "Jane Smith",
+  "source": "Website",
+  "interestedCourse": "MERN Stack",
+  "status": "new"
+}
+🎓 Course InterestsMethodEndpointDescriptionGET/api/coursesGet all course interestsPOST/api/coursesAdd new course interestPUT/api/courses/:idUpdate course interestDELETE/api/courses/:idDelete course interestExample Course ObjectJSON{
+  "courseName": "Full Stack Development",
+  "duration": "6 months",
+  "fees": 20000
+}
+🔧 ScriptsBashnpm start        # Start the server
+npm run dev      # Start with nodemon (development)
+🧪 TestingUse Postman or Thunder Client to test the API endpoints.Example request for login:JSONPOST /api/auth/login
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}
+```

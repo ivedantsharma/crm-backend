@@ -1,87 +1,44 @@
+// src/routes/enquiryRoutes.js
 import express from "express";
-import Enquiry from "../models/Enquiry.js";
+import {
+  submitPublicEnquiry,
+  getPublicEnquiries,
+  claimEnquiry,
+  getPrivateEnquiries,
+} from "../controllers/enquiryController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
+import { body, validationResult } from "express-validator";
 
 const router = express.Router();
 
-// 1️⃣ Public endpoint — anyone can submit an enquiry
-router.post("/public", async (req, res) => {
-  try {
-    const { name, email, courseInterest } = req.body;
+// small validator middleware for convenience
+const validate = (req, res, next) => {
+  const errs = validationResult(req);
+  if (!errs.isEmpty()) return res.status(400).json({ errors: errs.array() });
+  next();
+};
 
-    const newEnquiry = new Enquiry({ name, email, courseInterest });
-    await newEnquiry.save();
+// Public submission (no auth)
+router.post(
+  "/public",
+  [
+    body("name").notEmpty().withMessage("Name is required"),
+    body("email").isEmail().withMessage("Valid email is required"),
+    body("courseInterest")
+      .notEmpty()
+      .withMessage("Course interest is required"),
+  ],
+  validate,
+  submitPublicEnquiry
+);
 
-    res.status(201).json({
-      message: "Enquiry submitted successfully!",
-      enquiry: newEnquiry,
-    });
-  } catch (error) {
-    console.error("Error submitting enquiry:", error.message);
-    res
-      .status(500)
-      .json({ message: "Error submitting enquiry", error: error.message });
-  }
-});
+// Get unclaimed enquiries (auth)
+router.get("/public", authMiddleware, getPublicEnquiries);
 
-// 2️⃣ Get all public (unclaimed) enquiries
-router.get("/public", authMiddleware, async (req, res) => {
-  try {
-    const publicEnquiries = await Enquiry.find({ claimedBy: null }).sort({
-      createdAt: -1,
-    });
-    res.status(200).json({
-      message: "Unclaimed enquiries fetched",
-      enquiries: publicEnquiries,
-    });
-  } catch (error) {
-    console.error("Error fetching public enquiries:", error.message);
-    res.status(500).json({
-      message: "Error fetching public enquiries",
-      error: error.message,
-    });
-  }
-});
+// Claim an enquiry (auth)
+router.post("/claim/:id", authMiddleware, claimEnquiry);
 
-// 3️⃣ Claim an enquiry
-router.post("/claim/:id", authMiddleware, async (req, res) => {
-  try {
-    const enquiry = await Enquiry.findById(req.params.id);
-
-    if (!enquiry) return res.status(404).json({ message: "Enquiry not found" });
-    if (enquiry.claimedBy)
-      return res
-        .status(400)
-        .json({ message: "Enquiry already claimed by another user" });
-
-    enquiry.claimedBy = req.user.id;
-    await enquiry.save();
-
-    res.status(200).json({ message: "Enquiry claimed successfully!", enquiry });
-  } catch (error) {
-    console.error("Error claiming enquiry:", error.message);
-    res
-      .status(500)
-      .json({ message: "Error claiming enquiry", error: error.message });
-  }
-});
-
-// 4️⃣ Get all enquiries claimed by logged-in user
-router.get("/private", authMiddleware, async (req, res) => {
-  try {
-    const myEnquiries = await Enquiry.find({ claimedBy: req.user.id }).sort({
-      createdAt: -1,
-    });
-    res
-      .status(200)
-      .json({ message: "Your claimed enquiries", enquiries: myEnquiries });
-  } catch (error) {
-    console.error("Error fetching private enquiries:", error.message);
-    res.status(500).json({
-      message: "Error fetching private enquiries",
-      error: error.message,
-    });
-  }
-});
+// Get claimed enquiries for current user (auth)
+router.get("/private", authMiddleware, getPrivateEnquiries);
 
 export default router;

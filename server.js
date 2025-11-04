@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import connectDB from "./src/utils/db.js";
 import authRoutes from "./src/routes/auth.js";
 import authMiddleware from "./src/middleware/authMiddleware.js";
-import contactRoutes from "./src/routes/contactRoutes.js";
 import enquiryRoutes from "./src/routes/enquiryRoutes.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
 
@@ -20,7 +19,6 @@ app.use(express.json());
 
 // routes
 app.use("/auth", authRoutes);
-app.use("/api/contacts", contactRoutes);
 app.use("/enquiry", enquiryRoutes);
 app.get("/protected", authMiddleware, (req, res) => {
   res.json({ message: `Welcome, user ${req.user.email}!` });
