@@ -35,17 +35,34 @@ It provides APIs for managing **customers**, **leads**, **course interests**, an
 ```bash
 git clone [https://github.com/yourusername/crm-backend.git](https://github.com/yourusername/crm-backend.git)
 cd crm-backend
-### 2️⃣ Install dependenciesBashnpm install
-### 3️⃣ Set up environment variablesCreate a .env file in the root directory and add:BashPORT=5000
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Set up environment variables
+
+Create a .env file in the root directory and add
+
+```bash
+PORT=5000
 MONGO_URI=mongodb+srv://your-mongo-uri
 JWT_SECRET=your_jwt_secret
 NODE_ENV=development
+```
+
 ### 4️⃣ Start the serverBashnpm run dev
+
 Server will start at: http://localhost:5000
 
 ---
 
 ## 📁 Folder StructureBashsrc/
+
+```bash
 ├── config/
 │   └── db.js                # Database connection
 ├── controllers/
@@ -69,28 +86,42 @@ Server will start at: http://localhost:5000
 │   └── errorHandler.js      # Custom error handling
 ├── server.js                # Entry point
 └── .env                     # Environment variables
+```
 
 ---
 
 ## 🔑 API Endpoints
 
 # 👤 Auth Routes
-# ------------------------------------------------------
-# Method | Endpoint            | Description            | Protected
-# -------|----------------------|------------------------|-----------
-# POST   | /api/auth/register   | Register new user      | ❌
-# POST   | /api/auth/login      | Login user & get token | ❌
+
+```bash
+------------------------------------------------------
+Method | Endpoint            | Description            | Protected
+-------|----------------------|------------------------|-----------
+POST   | /api/auth/register   | Register new user      | ❌
+POST   | /api/auth/login      | Login user & get token | ❌
+```
 
 # 📞 Contact Routes
-# ------------------------------------------------------
-# Method | Endpoint             | Description                | Protected
-# -------|----------------------|-----------------------------|-----------
-# POST   | /api/contacts        | Create new contact          | ✅
-# GET    | /api/contacts        | Get all contacts            | ✅
-# GET    | /api/contacts/:id    | Get single contact by ID    | ✅
-# PUT    | /api/contacts/:id    | Update contact by ID        | ✅
-# DELETE | /api/contacts/:id    | Delete contact by ID        | ✅
+
+```bash
+------------------------------------------------------
+Method | Endpoint             | Description                | Protected
+-------|----------------------|-----------------------------|-----------
+POST   | /api/contacts        | Create new contact          | ✅
+GET    | /api/contacts        | Get all contacts            | ✅
+GET    | /api/contacts/:id    | Get single contact by ID    | ✅
+PUT    | /api/contacts/:id    | Update contact by ID        | ✅
+DELETE | /api/contacts/:id    | Delete contact by ID        | ✅
+```
 
 # ✅ Protected routes require a valid JWT in header:
+
 # Authorization: Bearer <token>
-```
+
+## 🧪 Testing with Postman
+
+1. Register a new user → `/api/auth/register`
+2. Login with `/api/auth/login` → copy JWT token
+3. For all `/api/contacts` routes → use: Authorization: Bearer <your_token>
+4. Try CRUD operations on contacts
