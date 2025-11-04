@@ -1,31 +1,35 @@
-# 🧠 Customer Relationship Management (CRM) Backend
+# 🧩 Customer Relationship Management (CRM) Backend
 
-This is a **Customer Relationship Management (CRM)** backend built using **Node.js**, **Express**, and **MongoDB (Mongoose)**.  
-It provides secure **User Authentication** and **Enquiry Management** (CRUD APIs) for handling customer enquiries.
+A lightweight backend system for managing client enquiries and counselor interactions, built with **Node.js**, **Express**, **MongoDB**, and **JWT authentication**.
+
+This API allows employees (counselors) to register/login, view public (unclaimed) enquiries, claim them, and view their own claimed enquiries privately.
 
 ---
 
 ## 🚀 Features
 
-✅ User Registration & Login (JWT-based)  
-✅ Enquiry Management (CRUD operations)  
-✅ Protected routes using JWT middleware  
-✅ MongoDB integration via Mongoose  
-✅ Input validation with express-validator  
-✅ Environment variables via dotenv  
-✅ Easy deployment-ready setup
+- Employee **register/login** with JWT authentication
+- **Public enquiry form** for prospective clients
+- **View public enquiries** (unclaimed leads)
+- **Claim enquiry** — assign enquiry to a counselor
+- **View claimed enquiries** (private leads)
+- **Centralized error handling**
+- MongoDB database integration
 
 ---
 
-## 🧩 Tech Stack
+## 🏗️ Tech Stack
 
-- **Node.js** – Backend runtime
-- **Express.js** – Web framework
-- **MongoDB** – Database
-- **Mongoose** – ODM for MongoDB
-- **JWT** – For authentication
-- **bcrypt.js** – For password hashing
-- **dotenv** – For environment configuration
+```bash
+| Layer | Technology |
+|--------|-------------|
+| Runtime | Node.js |
+| Framework | Express.js |
+| Database | MongoDB + Mongoose |
+| Authentication | JWT (JSON Web Token) |
+| Validation | express-validator |
+| Environment Config | dotenv |
+```
 
 ---
 
@@ -70,21 +74,21 @@ Server will start at: http://localhost:5000
 ```bash
 src/
 ├── config/
-│   └── db.js                # Database connection
+│   └── db.js
 ├── controllers/
-│   ├── authController.js    # Handles signup/login
-│   └── enquiryController.js  # CRUD for Enquiry
+│   ├── authController.js
+│   └── enquiryController.js
 ├── middleware/
-│   └── authMiddleware.js    # Auth protection (JWT)
+│   └── authMiddleware.js
 ├── models/
-│   ├── User.js
-│   ├── Enquiry.js
+│   ├── User.js
+│   └── Enquiry.js
 ├── routes/
-│   ├── authRoutes.js
-│   ├── enquiryRoutes.js
+│   ├── authRoutes.js
+│   └── enquiryRoutes.js
 ├── utils/
-│   └── errorHandler.js      # Custom error handling
-│   └── validator.js         # Validation
+│   ├── errorHandler.js
+│   └── validator.js
 ```
 
 ---
@@ -105,18 +109,13 @@ POST   | /api/auth/login      | Login user & get token | ❌
 
 ```bash
 ------------------------------------------------------
-Method | Endpoint               | Description                               | Protected
--------|-------------------------|-------------------------------------------|-----------
-POST   | /api/enquiry            | Create a new enquiry                      | ✅
-GET    | /api/enquiry            | Get all enquiries for logged-in user      | ✅
-GET    | /api/enquiry/:id        | Get a single enquiry by ID                | ✅
-PUT    | /api/enquiry/:id        | Update an enquiry (if created by user)    | ✅
-DELETE | /api/enquiry/:id        | Delete an enquiry (if created by user)    | ✅
+Method | Endpoint                | Description                             | Protected
+-------|--------------------------|-----------------------------------------|-----------
+POST   | /api/enquiry/public      | Submit a new public enquiry             | ❌
+GET    | /api/enquiry/public      | Get all unclaimed (public) enquiries    | ✅
+POST   | /api/enquiry/claim/:id   | Claim an unclaimed enquiry              | ✅
+GET    | /api/enquiry/private     | Get enquiries claimed by logged-in user | ✅
 ```
-
-# ✅ Protected routes require a valid JWT in header:
-
-# Authorization: Bearer <token>
 
 ## 🧪 Testing with Postman
 
@@ -124,3 +123,81 @@ DELETE | /api/enquiry/:id        | Delete an enquiry (if created by user)    | �
 2. Login with `/api/auth/login` → copy JWT token
 3. For all `/api/contacts` routes → use: Authorization: Bearer <your_token>
 4. Try CRUD operations on contacts
+
+## 🧪 Example Usage
+
+# Register
+
+HTTP Type: POST
+API Endpoint: /api/auth/register
+Headers:
+Content-Type: application/json
+Raw JSON Body:
+
+```bash
+{
+"name": "John Doe",
+"email": "john@example.com",
+"password": "123456"
+}
+```
+
+# Login User
+
+HTTP Type: POST
+API Endpoint: /api/auth/login
+Headers:
+Content-Type: application/json
+Raw JSON Body:
+
+```bash
+{
+"email": "john@example.com",
+"password": "123456"
+}
+```
+
+# Submit Public Enquiry (No Auth Required)
+
+HTTP Type: POST
+API Endpoint: /api/enquiry/public
+Headers:
+Content-Type: application/json
+
+Raw JSON Body:
+
+```bash
+{
+  "name": "Alice",
+  "email": "alice@mail.com",
+  "courseInterest": "Full Stack Web Development",
+  "message": "I want to know about the course duration."
+}
+```
+
+# Get All Unclaimed Enquiries (Public Leads)
+
+HTTP Type: GET
+API Endpoint: /api/enquiry/public
+Headers:
+Authorization: Bearer <your_jwt_token>
+
+# Claim an Enquiry (Private it to yourself)
+
+HTTP Type: POST
+API Endpoint: /api/enquiry/claim/:id
+Headers:
+Authorization: Bearer <your_jwt_token>
+Example URL:
+
+```bash
+/api/enquiry/claim/67305b5f17c3a2b8942e1e88
+```
+
+# Get All Claimed Enquiries (Private Leads)
+
+HTTP Type: GET
+API Endpoint: /api/enquiry/private
+Headers:
+Authorization: Bearer <your_jwt_token>
+
