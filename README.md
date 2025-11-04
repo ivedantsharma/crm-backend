@@ -128,11 +128,9 @@ GET    | /api/enquiry/private     | Get enquiries claimed by logged-in user | âœ
 
 ## Register
 
-HTTP Type: POST
-API Endpoint: /api/auth/register
-Headers:
-Content-Type: application/json
-Raw JSON Body:
+- HTTP Type: POST
+- API Endpoint: /api/auth/register
+- Raw JSON Body:
 
 ```bash
 {
@@ -144,12 +142,9 @@ Raw JSON Body:
 
 ## Login User
 
-HTTP Type: POST
-
-API Endpoint: /api/auth/login
-
-Raw JSON Body:
-
+- HTTP Type: POST
+- API Endpoint: /api/auth/login
+- Raw JSON Body:
 ```bash
 {
 "email": "john@example.com",
@@ -159,12 +154,9 @@ Raw JSON Body:
 
 ## Submit Public Enquiry (No Auth Required)
 
-HTTP Type: POST
-
-API Endpoint: /api/enquiry/public
-
-Raw JSON Body:
-
+- HTTP Type: POST
+- API Endpoint: /api/enquiry/public
+- Raw JSON Body:
 ```bash
 {
   "name": "Alice",
@@ -176,33 +168,25 @@ Raw JSON Body:
 
 ## Get All Unclaimed Enquiries (Public Leads)
 
-HTTP Type: GET
-
-API Endpoint: /api/enquiry/public
-
-Headers:
+- HTTP Type: GET
+- API Endpoint: /api/enquiry/public
+- Headers:
 Authorization: Bearer <your_jwt_token>
 
 ## Claim an Enquiry (Private it to yourself)
 
-HTTP Type: POST
-
-API Endpoint: /api/enquiry/claim/:id
-
-Headers:
+- HTTP Type: POST
+- API Endpoint: /api/enquiry/claim/:id
+- Headers:
 Authorization: Bearer <your_jwt_token>
-
-Example URL:
-
+- Example URL:
 ```bash
 /api/enquiry/claim/67305b5f17c3a2b8942e1e88
 ```
 
 ## Get All Claimed Enquiries (Private Leads)
 
-HTTP Type: GET
-
-API Endpoint: /api/enquiry/private
-
-Headers:
+- HTTP Type: GET
+- API Endpoint: /api/enquiry/private
+- Headers:
 Authorization: Bearer <your_jwt_token>
