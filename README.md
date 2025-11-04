@@ -20,16 +20,13 @@ This API allows employees (counselors) to register/login, view public (unclaimed
 
 ## 🏗️ Tech Stack
 
-```bash
-| Layer | Technology |
-|--------|-------------|
-| Runtime | Node.js |
-| Framework | Express.js |
-| Database | MongoDB + Mongoose |
-| Authentication | JWT (JSON Web Token) |
-| Validation | express-validator |
-| Environment Config | dotenv |
-```
+- **Node.js** – JavaScript runtime
+- **Express.js** – Web framework
+- **MongoDB + Mongoose** – Database
+- **JWT (jsonwebtoken)** – Secure authentication
+- **bcrypt.js** – Password hashing
+- **express-validator** – Request validation
+- **dotenv** – Environment variable management
 
 ---
 
