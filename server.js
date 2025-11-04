@@ -1,7 +1,7 @@
 // server.js
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./src/utils/db.js";
+import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/auth.js";
 import authMiddleware from "./src/middleware/authMiddleware.js";
 import enquiryRoutes from "./src/routes/enquiryRoutes.js";

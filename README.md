@@ -1,18 +1,19 @@
 # 🧠 Customer Relationship Management (CRM) Backend
 
-This project is a **Customer Relationship Management (CRM)** backend system built using **Node.js**, **Express.js**, and **MongoDB**.  
-It provides APIs for managing **customers**, **leads**, **course interests**, and **user authentication** — allowing organizations to efficiently manage their client database.
+This is a **Customer Relationship Management (CRM)** backend built using **Node.js**, **Express**, and **MongoDB (Mongoose)**.  
+It provides secure **User Authentication** and **Enquiry Management** (CRUD APIs) for handling customer enquiries.
 
 ---
 
 ## 🚀 Features
 
-✅ User authentication using JWT  
-✅ CRUD operations for customers, leads, and courses  
-✅ Role-based access (admin, staff)  
-✅ MongoDB as the database (via Mongoose ODM)  
-✅ Proper error handling & response structure  
-✅ Scalable folder structure
+✅ User Registration & Login (JWT-based)  
+✅ Enquiry Management (CRUD operations)  
+✅ Protected routes using JWT middleware  
+✅ MongoDB integration via Mongoose  
+✅ Input validation with express-validator  
+✅ Environment variables via dotenv  
+✅ Easy deployment-ready setup
 
 ---
 
@@ -33,7 +34,7 @@ It provides APIs for managing **customers**, **leads**, **course interests**, an
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone [https://github.com/yourusername/crm-backend.git](https://github.com/yourusername/crm-backend.git)
+git clone [https://github.com/ivedantsharma/crm-backend.git]
 cd crm-backend
 ```
 
@@ -54,38 +55,36 @@ JWT_SECRET=your_jwt_secret
 NODE_ENV=development
 ```
 
-### 4️⃣ Start the serverBashnpm run dev
+### 4️⃣ Start the server
+
+```bash
+npm run dev
+```
 
 Server will start at: http://localhost:5000
 
 ---
 
-## 📁 Folder StructureBashsrc/
+## 📁 Folder Structure
 
 ```bash
+src/
 ├── config/
 │   └── db.js                # Database connection
 ├── controllers/
 │   ├── authController.js    # Handles signup/login
-│   ├── customerController.js# CRUD for customers
-│   ├── leadController.js    # CRUD for leads
-│   └── courseController.js  # CRUD for course interests
+│   └── enquiryController.js  # CRUD for Enquiry
 ├── middleware/
 │   └── authMiddleware.js    # Auth protection (JWT)
 ├── models/
 │   ├── User.js
-│   ├── Customer.js
-│   ├── Lead.js
-│   └── CourseInterest.js
+│   ├── Enquiry.js
 ├── routes/
 │   ├── authRoutes.js
-│   ├── customerRoutes.js
-│   ├── leadRoutes.js
-│   └── courseRoutes.js
+│   ├── enquiryRoutes.js
 ├── utils/
 │   └── errorHandler.js      # Custom error handling
-├── server.js                # Entry point
-└── .env                     # Environment variables
+│   └── validator.js         # Validation
 ```
 
 ---
@@ -102,17 +101,17 @@ POST   | /api/auth/register   | Register new user      | ❌
 POST   | /api/auth/login      | Login user & get token | ❌
 ```
 
-# 📞 Contact Routes
+# 📩 Enquiry Routes
 
 ```bash
 ------------------------------------------------------
-Method | Endpoint             | Description                | Protected
--------|----------------------|-----------------------------|-----------
-POST   | /api/contacts        | Create new contact          | ✅
-GET    | /api/contacts        | Get all contacts            | ✅
-GET    | /api/contacts/:id    | Get single contact by ID    | ✅
-PUT    | /api/contacts/:id    | Update contact by ID        | ✅
-DELETE | /api/contacts/:id    | Delete contact by ID        | ✅
+Method | Endpoint               | Description                               | Protected
+-------|-------------------------|-------------------------------------------|-----------
+POST   | /api/enquiry            | Create a new enquiry                      | ✅
+GET    | /api/enquiry            | Get all enquiries for logged-in user      | ✅
+GET    | /api/enquiry/:id        | Get a single enquiry by ID                | ✅
+PUT    | /api/enquiry/:id        | Update an enquiry (if created by user)    | ✅
+DELETE | /api/enquiry/:id        | Delete an enquiry (if created by user)    | ✅
 ```
 
 # ✅ Protected routes require a valid JWT in header:
