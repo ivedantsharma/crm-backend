@@ -95,7 +95,7 @@ src/
 
 ## 🔑 API Endpoints
 
-# 👤 Auth Routes
+### 👤 Auth Routes
 
 ```bash
 ------------------------------------------------------
@@ -105,7 +105,7 @@ POST   | /api/auth/register   | Register new user      | ❌
 POST   | /api/auth/login      | Login user & get token | ❌
 ```
 
-# 📩 Enquiry Routes
+### 📩 Enquiry Routes
 
 ```bash
 ------------------------------------------------------
@@ -124,9 +124,9 @@ GET    | /api/enquiry/private     | Get enquiries claimed by logged-in user | �
 3. For all `/api/contacts` routes → use: Authorization: Bearer <your_token>
 4. Try CRUD operations on contacts
 
-# 🧪 Example Usage
+## 🧪 Example Usage
 
-## Register
+### Register
 
 - HTTP Type: POST
 - API Endpoint: /api/auth/register
@@ -140,11 +140,12 @@ GET    | /api/enquiry/private     | Get enquiries claimed by logged-in user | �
 }
 ```
 
-## Login User
+### Login User
 
 - HTTP Type: POST
 - API Endpoint: /api/auth/login
 - Raw JSON Body:
+
 ```bash
 {
 "email": "john@example.com",
@@ -152,11 +153,12 @@ GET    | /api/enquiry/private     | Get enquiries claimed by logged-in user | �
 }
 ```
 
-## Submit Public Enquiry (No Auth Required)
+### Submit Public Enquiry (No Auth Required)
 
 - HTTP Type: POST
 - API Endpoint: /api/enquiry/public
 - Raw JSON Body:
+
 ```bash
 {
   "name": "Alice",
@@ -166,27 +168,28 @@ GET    | /api/enquiry/private     | Get enquiries claimed by logged-in user | �
 }
 ```
 
-## Get All Unclaimed Enquiries (Public Leads)
+### Get All Unclaimed Enquiries (Public Leads)
 
 - HTTP Type: GET
 - API Endpoint: /api/enquiry/public
 - Headers:
-Authorization: Bearer <your_jwt_token>
+  Authorization: Bearer <your_jwt_token>
 
-## Claim an Enquiry (Private it to yourself)
+### Claim an Enquiry (Private it to yourself)
 
 - HTTP Type: POST
 - API Endpoint: /api/enquiry/claim/:id
 - Headers:
-Authorization: Bearer <your_jwt_token>
+  Authorization: Bearer <your_jwt_token>
 - Example URL:
+
 ```bash
 /api/enquiry/claim/67305b5f17c3a2b8942e1e88
 ```
 
-## Get All Claimed Enquiries (Private Leads)
+### Get All Claimed Enquiries (Private Leads)
 
 - HTTP Type: GET
 - API Endpoint: /api/enquiry/private
 - Headers:
-Authorization: Bearer <your_jwt_token>
+  Authorization: Bearer <your_jwt_token>
