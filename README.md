@@ -69,23 +69,25 @@ Server will start at: http://localhost:5000
 ## 📁 Folder Structure
 
 ```bash
-src/
-├── config/
-│   └── db.js
-├── controllers/
-│   ├── authController.js
-│   └── enquiryController.js
-├── middleware/
-│   └── authMiddleware.js
-├── models/
-│   ├── User.js
-│   └── Enquiry.js
-├── routes/
-│   ├── authRoutes.js
-│   └── enquiryRoutes.js
-├── utils/
-│   ├── errorHandler.js
-│   └── validator.js
+crm-backend/
+│
+├── server.js
+├── package.json
+├── .env
+├── src/
+│   ├── config/
+│   │   └── db.js
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   ├── models/
+│   │   ├── Employee.js
+│   │   └── Enquiry.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   └── enquiryRoutes.js
+│   └── utils/
+│       └── errorHandler.js
+└── README.md
 ```
 
 ---
