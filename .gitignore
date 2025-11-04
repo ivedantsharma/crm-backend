@@ -26,14 +26,14 @@ pids
 /tmp
 /out
 
-# Coverage
-coverage/
-nyc_output/
-
 # Environment variables (keep .env.example in repo)
 .env
 .env.*.local
 !.env.example
+
+# Coverage
+coverage/
+nyc_output/
 
 # MongoDB data + dumps
 /data/db/
