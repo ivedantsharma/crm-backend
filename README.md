@@ -35,13 +35,17 @@ It provides APIs for managing **customers**, **leads**, **course interests**, an
 ```bash
 git clone [https://github.com/yourusername/crm-backend.git](https://github.com/yourusername/crm-backend.git)
 cd crm-backend
-2️⃣ Install dependenciesBashnpm install
-3️⃣ Set up environment variablesCreate a .env file in the root directory and add:BashPORT=5000
+### 2️⃣ Install dependenciesBashnpm install
+### 3️⃣ Set up environment variablesCreate a .env file in the root directory and add:BashPORT=5000
 MONGO_URI=mongodb+srv://your-mongo-uri
 JWT_SECRET=your_jwt_secret
 NODE_ENV=development
-4️⃣ Start the serverBashnpm run dev
-Server will start at: http://localhost:5000📁 Folder StructureBashsrc/
+### 4️⃣ Start the serverBashnpm run dev
+Server will start at: http://localhost:5000
+
+---
+
+## 📁 Folder StructureBashsrc/
 ├── config/
 │   └── db.js                # Database connection
 ├── controllers/
@@ -65,37 +69,28 @@ Server will start at: http://localhost:5000📁 Folder StructureBashsrc/
 │   └── errorHandler.js      # Custom error handling
 ├── server.js                # Entry point
 └── .env                     # Environment variables
-🔑 API Endpoints🔐 AuthenticationMethodEndpointDescriptionPOST/api/auth/registerRegister a new userPOST/api/auth/loginLogin and get tokenExample Login RequestJSONPOST /api/auth/login
-{
-  "email": "admin@example.com",
-  "password": "password123"
-}
-Example Login ResponseJSON{
-  "message": "Login successful",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
-}
-👤 CustomersMethodEndpointDescriptionGET/api/customersGet all customersGET/api/customers/:idGet customer by IDPOST/api/customersAdd new customerPUT/api/customers/:idUpdate customerDELETE/api/customers/:idDelete customerExample Customer ObjectJSON{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "phone": "9876543210",
-  "status": "active"
-}
-🧲 LeadsMethodEndpointDescriptionGET/api/leadsGet all leadsPOST/api/leadsAdd a new leadPUT/api/leads/:idUpdate a leadDELETE/api/leads/:idDelete a leadExample Lead ObjectJSON{
-  "leadName": "Jane Smith",
-  "source": "Website",
-  "interestedCourse": "MERN Stack",
-  "status": "new"
-}
-🎓 Course InterestsMethodEndpointDescriptionGET/api/coursesGet all course interestsPOST/api/coursesAdd new course interestPUT/api/courses/:idUpdate course interestDELETE/api/courses/:idDelete course interestExample Course ObjectJSON{
-  "courseName": "Full Stack Development",
-  "duration": "6 months",
-  "fees": 20000
-}
-🔧 ScriptsBashnpm start        # Start the server
-npm run dev      # Start with nodemon (development)
-🧪 TestingUse Postman or Thunder Client to test the API endpoints.Example request for login:JSONPOST /api/auth/login
-{
-  "email": "user@example.com",
-  "password": "yourpassword"
-}
+
+---
+
+## 🔑 API Endpoints
+
+# 👤 Auth Routes
+# ------------------------------------------------------
+# Method | Endpoint            | Description            | Protected
+# -------|----------------------|------------------------|-----------
+# POST   | /api/auth/register   | Register new user      | ❌
+# POST   | /api/auth/login      | Login user & get token | ❌
+
+# 📞 Contact Routes
+# ------------------------------------------------------
+# Method | Endpoint             | Description                | Protected
+# -------|----------------------|-----------------------------|-----------
+# POST   | /api/contacts        | Create new contact          | ✅
+# GET    | /api/contacts        | Get all contacts            | ✅
+# GET    | /api/contacts/:id    | Get single contact by ID    | ✅
+# PUT    | /api/contacts/:id    | Update contact by ID        | ✅
+# DELETE | /api/contacts/:id    | Delete contact by ID        | ✅
+
+# ✅ Protected routes require a valid JWT in header:
+# Authorization: Bearer <token>
 ```
